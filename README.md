@@ -1,2 +1,9 @@
 # latency-clock-test
-Test network latency &amp; connectivity with a clock. Test load balancer functionality for evaluating network efficiency. Easy setup &amp; real-time monitoring.
+## Description
+This tool provides a simple clock-based mechanism to test network latency and connectivity. It's designed for easy setup and real-time monitoring of network performance.
+
+## Features
+- Real-time clock display for visualizing network activity.
+- Socket.IO integration for seamless communication.
+- Client-side latency testing.
+- Minimal dependencies for easy deployment.
