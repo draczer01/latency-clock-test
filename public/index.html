@@ -1,0 +1,72 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Socket.io Dial Control</title>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    #container {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-color: #4287f5; /* Change circle color to a more visible color */
+    }
+
+    #dial {
+        position: absolute;
+        top: 10px; /* Adjust the position of the dial */
+        left: 50%;
+        width: 20px;
+        height: 80px;
+        background-color: #333;
+        border-radius: 10px;
+        transform-origin: bottom center; /* Changing the origin to the bottom center */
+        transition: transform 0.5s ease;
+    }
+
+    #timeDisplay {
+        position: absolute;
+        bottom: 35%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-family: Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<div id="container">
+    <div id="dial"></div>
+</div>
+<div id="timeDisplay">Server Time: <span id="serverTime">00:00:00.000</span></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    // Listen for the "rotate_dial" event and rotate the dial accordingly
+    socket.on('rotate_dial', (serverTime) => {
+        const dial = document.getElementById('dial');
+        let rotation = parseInt(dial.style.transform.replace('rotate(', '').replace('deg)', '')) || 0;
+        rotation += 10; // Rotate by 30 degrees (for each hour in a clock)
+        dial.style.transform = `rotate(${rotation}deg)`;
+
+        // Update server time display
+        document.getElementById('serverTime').innerText = serverTime;
+    });
+</script>
+</body>
+</html>
